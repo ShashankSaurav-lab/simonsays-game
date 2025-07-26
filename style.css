@@ -1,0 +1,63 @@
+/*  basic layout css */
+/* ---------------------------- */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  position: relative;
+  height: 400px;
+  width: 400px;
+}
+
+/* Basic box design */
+/* ---------------------------- */
+.panel {
+  height: 200px;
+  width: 200px;
+}
+
+.green {
+  background-color: green;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.yellow {
+  background-color: yellow;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+.blue {
+  background-color: blue;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.red {
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.top-left {
+  border-top-left-radius: 100%;
+}
+.top-right {
+  border-top-right-radius: 100%;
+}
+.bottom-left {
+  border-bottom-left-radius: 100%;
+}
+.bottom-right {
+  border-bottom-right-radius: 100%;
+}
