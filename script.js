@@ -1,27 +1,62 @@
 let machine = [];
 let user = [];
+let started = false;
+let level = 0;
+let order =0;
 
-document.addEventListener("keydown",function(){
-machineturn();
 
-// for (i=0;true;i++){
-//      machineturn(); 
-//      check();
-// }
+//-----------------------------------
+//part 1 
+//------------------------------------
+let idblink = setInterval(() => {    //Setting the blink msg at start
+   let msg = document.querySelector(".msg");
+    msg.style.display = (msg.style.display == "block")?"none":"block";
+}, 570);
 
+document.addEventListener("keydown",function(){ //detects any key to start the game
+  order = 0;
+  user = [];
+    if(started == false){ //make sure it started
+        clearInterval(idblink);
+        document.querySelector(".msg").style.display = "none";
+        started =true;
+     }
+
+     document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+
+     machineturn(); //Machine will blink the colors
 })
 
-function check(){
- for(let i=0;i<machine.length;i++){
-
- }
+let allBtns = document.querySelectorAll(".panel");
+for (const btn of allBtns) {
+   btn.addEventListener("click",function(){
+      display(this.getAttribute("id"))
+      user.push(this.getAttribute("id"));
+      order++;
+      check(order);
+   })
 }
 
+//
+
+//-----------------------------------------
+//part 2
+//-----------------------------------------
+// function gameover(){
+// let machine = [];
+// let started = false;
+// let level = 0;
+// let idblink = setInterval(() => {    //Setting the blink msg at start
+//    let msg = document.querySelector(".msg");
+//     msg.style.display = (msg.style.display == "block")?"none":"block";
+// }, 570);}
+
 function machineturn(){
-     machine.push(randomColor());
+     machine.push(randomColor()); //gets generated color
      let index=0;
-     const itrid = setInterval(() => {
-                 display(machine[index]);
+     //showing all the colors by machine
+     const itrid = setInterval(() => {  //**** 
+                 display(document.querySelector(`.${machine[index]}`).getAttribute("id")); //sends the id name as a color
                  index++;
           if (index >= machine.length) {
               clearInterval(itrid);
@@ -29,8 +64,32 @@ function machineturn(){
         }, 800);
 }
 
-function userturn(){
-    
+function check(a){
+   console.log(user,machine);  
+   if(machine[a-1]!=user[a-1]){
+      console.log("game over");
+      gameover();
+   }else if(machine.length == user.length){
+      restart();
+   }
+}
+function restart(){
+   document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+    user = [];
+     order =0;
+   machineturn();
+}
+function gameover(){
+    started = false;
+    let idblink = setInterval(() => {    //Setting the blink msg at start
+   let msg = document.querySelector(".msg");
+    msg.style.display = (msg.style.display == "block")?"none":"block";
+}, 570);
+
+level = 0;
+user = [];
+machine = [];
+order = 0;
 }
 
 function randomColor(){ //return a random color
@@ -46,7 +105,7 @@ function randomColor(){ //return a random color
  }
 }
 
-function display(color){
+function display(color){ //display the blinking color
     if (color=="green"){
          document.querySelector(".green").style.boxShadow = `inset 0 0 50px rgba(255, 255, 224, 0.7),
     inset 0 0 80px rgba(255, 255, 200, 0.5),

@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 body {
   display: flex;
@@ -16,7 +17,7 @@ body {
 }
 .header {
   font-size: 50px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: cursive;
   margin: 10px;
 }
@@ -28,6 +29,8 @@ body {
 .level span {
   background-color: black;
   color: red;
+  font-size: 20px;
+  font-weight: 500;
   border: 2px solid white;
   border-radius: 3px;
   padding: 5px 30px 5px 30px;
@@ -43,6 +46,16 @@ body {
   width: 430px;
   border-radius: 50%;
   background-color: black;
+}
+.msg {
+  position: absolute;
+  font-size: 60px;
+  width: 100%;
+  top: 50%;
+  z-index: 3;
+  text-align: center;
+  background-color: rgba(128, 128, 128, 0.689);
+  color: white;
 }
 
 /* Basic box design */
@@ -119,7 +132,7 @@ body {
   top: 210px;
   left: 210px;
   transform: translate(-50%, -50%);
-  box-shadow: inset 1px 1px 35px 0px rgb(255 255 255 / 50%);
+  /* box-shadow: inset 1px 1px 35px 0px rgb(255 255 255 / 50%); */
   /* box-shadow: inset 9px 9px 35px rgba(144, 238, 144, 0.6);  */
   /* box-shadow: inset -13px 10px 35px 0px rgb(255 71 71 / 60%); */
   /* box-shadow: inset -11px -13px 35px 0px rgb(71 180 255 / 60%); */

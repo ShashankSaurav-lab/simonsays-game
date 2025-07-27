@@ -11,17 +11,18 @@
 
 <body>
     <div class="header">Simon Says Game</div>
-    <div class="level">Level: <span>1</span></div>
+    <div class="level">Level: <span></span></div>
     <div class="content">
         <!-- Initial State -->
-        <div class="green panel top-left" onclick="display('green')"></div>
-        <div class="yellow panel bottom-left" onclick="display('yellow')"></div>
-        <div class="blue panel bottom-right" onclick="display('blue')"></div>
-        <div class="red panel top-right" onclick="display('red')"></div>
+        <div class="green panel top-left" id="green"></div>
+        <div class="yellow panel bottom-left" id="yellow"></div>
+        <div class="blue panel bottom-right" id="blue"></div>
+        <div class="red panel top-right" id="red"></div>
         <div class="black"></div>
 
     </div>
     <div class="score">Score: 10</div>
+    <div class="msg">Press Any key to start</div>
 
     <script src="script.js"></script>
 </body>
