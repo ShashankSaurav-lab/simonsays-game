@@ -2,12 +2,17 @@ let machine = [];
 let user = [];
 let started = false;
 let level = 0;
+let score = -10;
 let order =0;
+let idgameover =0;
 
 
 //-----------------------------------
 //part 1 
 //------------------------------------
+document.querySelector(".prevent").style.display = "block"; //prevent user to click any panels
+
+
 let idblink = setInterval(() => {    //Setting the blink msg at start
    let msg = document.querySelector(".msg");
     msg.style.display = (msg.style.display == "block")?"none":"block";
@@ -20,14 +25,22 @@ document.addEventListener("keydown",function(){ //detects any key to start the g
         clearInterval(idblink);
         document.querySelector(".msg").style.display = "none";
         started =true;
+        document.querySelector(".prevent").style.display = "none";
+     } else if (idgameover != 0){ //make sure everything is clear after gameover
+         clearInterval(idgameover);
+        document.querySelector(".msg").style.display = "none";
+        idgameover =0;
+        document.querySelector(".prevent").style.display = "none";
      }
 
-     document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+   document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+   score = score + 10;
+   document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
 
-     machineturn(); //Machine will blink the colors
+   machineturn(); //Machine will blink the colors
 })
 
-let allBtns = document.querySelectorAll(".panel");
+let allBtns = document.querySelectorAll(".panel"); //detects the panel color after clicking
 for (const btn of allBtns) {
    btn.addEventListener("click",function(){
       display(this.getAttribute("id"))
@@ -37,19 +50,9 @@ for (const btn of allBtns) {
    })
 }
 
-//
-
 //-----------------------------------------
-//part 2
+//part 2 (All the functions ,which runs after getting called)
 //-----------------------------------------
-// function gameover(){
-// let machine = [];
-// let started = false;
-// let level = 0;
-// let idblink = setInterval(() => {    //Setting the blink msg at start
-//    let msg = document.querySelector(".msg");
-//     msg.style.display = (msg.style.display == "block")?"none":"block";
-// }, 570);}
 
 function machineturn(){
      machine.push(randomColor()); //gets generated color
@@ -67,30 +70,50 @@ function machineturn(){
 function check(a){
    console.log(user,machine);  
    if(machine[a-1]!=user[a-1]){
-      console.log("game over");
       gameover();
    }else if(machine.length == user.length){
       restart();
    }
 }
+
 function restart(){
    document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+   score = score + 10;
+    document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
+    
     user = [];
      order =0;
    machineturn();
 }
-function gameover(){
-    started = false;
-    let idblink = setInterval(() => {    //Setting the blink msg at start
-   let msg = document.querySelector(".msg");
-    msg.style.display = (msg.style.display == "block")?"none":"block";
-}, 570);
 
-level = 0;
+function gameover(){
+document.querySelector(".prevent").style.display = "block"; //prevent users to click any panels
+
+level = 0; //updating the level
+document.querySelector(".level").children[0].textContent = `${level}`;
+score = 0; //updating the score
+document.querySelector(".score").innerHTML = ` Score: 0`;
+
 user = [];
 machine = [];
 order = 0;
-}
+
+let id = setInterval(() => {    //Setting the blink msg after game over
+   let msg2 = document.querySelector(".msg2");
+    msg2.style.display = (msg2.style.display == "block")?"none":"block";
+}, 160);
+
+setTimeout(()=>{ //disappers the game over msg 
+   clearInterval(id);
+   document.querySelector(".msg2").style.display = "none";
+},2000);
+
+ setTimeout(() => { //starts after game over msg disappers
+   idgameover = setInterval(() => {    //Setting the blink msg for restart
+    let msg = document.querySelector(".msg");
+    msg.style.display = (msg.style.display == "block")?"none":"block";
+      }, 570);
+ }, 2000);}
 
 function randomColor(){ //return a random color
  let num = Math.floor((Math.random() * 4)+1);

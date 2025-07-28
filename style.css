@@ -57,6 +57,27 @@ body {
   background-color: rgba(128, 128, 128, 0.689);
   color: white;
 }
+.msg2 {
+  position: absolute;
+  font-family: cursive;
+  font-size: 60px;
+  width: 100%;
+  top: 50%;
+  z-index: 3;
+  text-align: center;
+  background-color: rgba(223, 223, 223, 0.6);
+  color: red;
+  display: none;
+}
+.prevent {
+  background-color: rgba(255, 255, 255, 0.001);
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+  position: absolute;
+  top: 0px;
+  display: none;
+}
 
 /* Basic box design */
 /* ---------------------------- */
