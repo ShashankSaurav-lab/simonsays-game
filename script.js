@@ -5,6 +5,7 @@ let level = 0;
 let score = -10;
 let order =0;
 let idgameover =0;
+let key = 0;
 
 
 //-----------------------------------
@@ -19,7 +20,9 @@ let idblink = setInterval(() => {    //Setting the blink msg at start
 }, 570);
 
 document.addEventListener("keydown",function(){ //detects any key to start the game
-  order = 0;
+  if (key == 0){
+   key =1;
+   order = 0;
   user = [];
     if(started == false){ //make sure it started
         clearInterval(idblink);
@@ -38,6 +41,7 @@ document.addEventListener("keydown",function(){ //detects any key to start the g
    document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
 
    machineturn(); //Machine will blink the colors
+  }
 })
 
 let allBtns = document.querySelectorAll(".panel"); //detects the panel color after clicking
@@ -94,6 +98,7 @@ document.querySelector(".level").children[0].textContent = `${level}`;
 score = 0; //updating the score
 document.querySelector(".score").innerHTML = ` Score: 0`;
 
+
 user = [];
 machine = [];
 order = 0;
@@ -113,6 +118,7 @@ setTimeout(()=>{ //disappers the game over msg
     let msg = document.querySelector(".msg");
     msg.style.display = (msg.style.display == "block")?"none":"block";
       }, 570);
+      key = 0;
  }, 2000);}
 
 function randomColor(){ //return a random color
