@@ -20,7 +20,9 @@ let idblink = setInterval(() => {    //Setting the blink msg at start
 }, 570);
 
 document.addEventListener("keydown",function(){ //detects any key to start the game
-  if (key == 0){
+  document.querySelector("#bg-music").play(); //plays background music
+
+   if (key == 0){
    key =1;
    order = 0;
   user = [];
@@ -81,6 +83,7 @@ function check(a){
 }
 
 function restart(){
+   document.querySelector("#win").play(); //plays win sound effect
    document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
    score = score + 10;
     document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
@@ -92,7 +95,7 @@ function restart(){
 
 function gameover(){
 document.querySelector(".prevent").style.display = "block"; //prevent users to click any panels
-
+document.querySelector("#lose").play(); //play lose sound effect
 level = 0; //updating the level
 document.querySelector(".level").children[0].textContent = `${level}`;
 score = 0; //updating the score
