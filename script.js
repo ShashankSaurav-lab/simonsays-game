@@ -19,7 +19,6 @@ document.querySelector(".prevent").style.display = "block"; //prevent user to cl
 
 document.addEventListener("keydown",handlestart) //detects any key to start the game
 document.addEventListener("click",handlestart) //detects any click to start the game
-   
 
 let allBtns = document.querySelectorAll(".panel"); //detects the panel color after clicking
 for (const btn of allBtns) {
@@ -124,7 +123,7 @@ document.querySelector(".prevent").style.display = "block"; //prevent users to c
 
 document.querySelector(".score").innerHTML = ` Score: 0`;
 document.querySelector("#level-screen").textContent = "0"; 
-
+ addScoreToLeaderboard(score, level);
 
 let id = setInterval(() => {    //Setting the blink msg after game over
    let msg2 = document.querySelector(".msg2");
@@ -201,3 +200,31 @@ function display(color){ //display the blinking color
      },350)
  }
 }
+
+//leaderboard
+let leaderboard = JSON.parse(localStorage.getItem('simonsays_leaderboard')) ||[];
+
+// Function to add a new score to leaderboard and keep top 5 scores
+function addScoreToLeaderboard(score, level) {
+  leaderboard.push({score, level});
+  leaderboard.sort((a, b) => {
+  if (a.score < b.score) return 1;   // b before a
+  if (a.score > b.score) return -1;  // a before b
+  return 0; // equal
+}); // sort by score
+  if (leaderboard.length > 5) leaderboard.pop(); // keep top 5
+  localStorage.setItem('simonsays_leaderboard', JSON.stringify(leaderboard));//update thr local storage
+  updateLeaderboard();
+}
+
+function updateLeaderboard() {
+  let list = document.getElementById('leaderboard-list');
+  list.innerHTML = '';
+  leaderboard.forEach((entry) => {
+    let li = document.createElement('li');
+    li.textContent = `Score: ${entry.score} at Level: ${entry.level}`;
+    list.appendChild(li);
+  });
+}
+
+  updateLeaderboard();

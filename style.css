@@ -169,6 +169,53 @@ body {
 .bottom-right {
   border-bottom-right-radius: 100%;
 }
+
+.leaderboard {
+  position: absolute;
+  left: 2vw;
+  top: 20vh;
+  width: 20vw;
+  color: white;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#leaderboard-list {
+  list-style: decimal inside;
+  padding-left: 0;
+}
+
+#leaderboard-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #555;
+}
+
+.howtoplay {
+  position: absolute;
+  left: 2vw;
+  top: 78vh;
+  margin-bottom: 2vw;
+  color: white;
+  background-color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  z-index: 100;
+}
+.howtoplay h2 {
+  margin: 0px 0px 2px 2px;
+}
+.howtoplay p {
+  opacity: 89%;
+  margin-left: 17px;
+}
+
 /* Responsive */
 @media (max-width: 500px) {
   .header {
@@ -194,5 +241,20 @@ body {
   .black {
     top: 165px;
     left: 165px;
+  }
+}
+@media (max-width: 1000px) {
+  .body {
+    overflow: scroll;
+  }
+  .leaderboard {
+    position: static;
+    width: 90vw;
+    margin: 3vw 0px;
+  }
+  .howtoplay {
+    position: static;
+    width: 90vw;
+    margin-bottom: 13vw;
   }
 }
