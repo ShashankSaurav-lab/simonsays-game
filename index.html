@@ -11,18 +11,21 @@
 
 <body>
     <div class="header">Simon Says Game</div>
-    <div class="level">Level: <span></span></div>
+    <div class="score">Score: 0</div>
     <div class="content">
         <!-- Initial State -->
         <div class="green panel top-left" id="green"></div>
         <div class="yellow panel bottom-left" id="yellow"></div>
         <div class="blue panel bottom-right" id="blue"></div>
         <div class="red panel top-right" id="red"></div>
-        <div class="black"></div>
+        <div class="black">
+            <div class="level"> &nbsp; Level <div id="level-screen">0</div>
+            </div>
+        </div>
 
     </div>
-    <div class="score">Score: 0</div>
-    <div class="msg">Press Any key to start</div>
+
+    <div class="msg">Click/Press Any key to start</div>
     <div class="msg2">Game over!</div>
     <div class="prevent"></div>
     <audio src="./assets/bg-music.mp3" id="bg-music" loop></audio>

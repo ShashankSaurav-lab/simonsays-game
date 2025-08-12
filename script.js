@@ -1,50 +1,25 @@
 let machine = [];
 let user = [];
-let started = false;
+let start = false;
+let gameover = false;
 let level = 0;
 let score = -10;
 let order =0;
-let idgameover =0;
-let key = 0;
+let idblink = 0;
 
 
 //-----------------------------------
 //part 1 
 //------------------------------------
 document.querySelector(".prevent").style.display = "block"; //prevent user to click any panels
-
-
-let idblink = setInterval(() => {    //Setting the blink msg at start
+ idblink = setInterval(() => {    //Setting the blink msg at start
    let msg = document.querySelector(".msg");
     msg.style.display = (msg.style.display == "block")?"none":"block";
 }, 570);
 
-document.addEventListener("keydown",function(){ //detects any key to start the game
-  document.querySelector("#bg-music").play(); //plays background music
-
-   if (key == 0){
-   key =1;
-   order = 0;
-  user = [];
-    if(started == false){ //make sure it started
-        clearInterval(idblink);
-        document.querySelector(".msg").style.display = "none";
-        started =true;
-        document.querySelector(".prevent").style.display = "none";
-     } else if (idgameover != 0){ //make sure everything is clear after gameover
-         clearInterval(idgameover);
-        document.querySelector(".msg").style.display = "none";
-        idgameover =0;
-        document.querySelector(".prevent").style.display = "none";
-     }
-
-   document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
-   score = score + 10;
-   document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
-
-   machineturn(); //Machine will blink the colors
-  }
-})
+document.addEventListener("keydown",handlestart) //detects any key to start the game
+document.addEventListener("click",handlestart) //detects any click to start the game
+   
 
 let allBtns = document.querySelectorAll(".panel"); //detects the panel color after clicking
 for (const btn of allBtns) {
@@ -59,6 +34,53 @@ for (const btn of allBtns) {
 //-----------------------------------------
 //part 2 (All the functions ,which runs after getting called)
 //-----------------------------------------
+function handlestart(){
+     
+   if (start == false || gameover == true){
+      start = true;
+      if(gameover == true){ gameover = false;}
+
+       document.querySelector("#bg-music").play(); //plays background music
+        clearInterval(idblink) //stops the blinking text
+        document.querySelector(".msg").style.display = "none"; //clear the blinking text if left
+        
+        level = 0;
+        score = 0;
+        user = [];
+        order = 0;
+        machine = [];
+
+        document.querySelector("#level-screen").textContent = `${++level}`; //upgrading the level
+        score = score + 10;
+        document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
+
+       machineturn(); //Machine will blink the colors
+   }
+
+//   if (key == 0){
+//       key = 1;
+//       order = 0;
+//       user = [];
+//     if(start == false){ //make sure it started
+//         start =true;
+//         clearInterval(idblink);
+//         document.querySelector(".msg").style.display = "none";
+       
+//         document.querySelector(".prevent").style.display = "none";
+//      } else if (idgameover != 0){ //make sure everything is clear after gameover
+//          clearInterval(idgameover);
+//         document.querySelector(".msg").style.display = "none";
+//         idgameover =0;
+//         document.querySelector(".prevent").style.display = "none";
+//      }
+
+   // document.querySelector("#level-screen").textContent = `${++level}`; //upgrading the level
+   // score = score + 10;
+   // document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
+
+   // machineturn(); //Machine will blink the colors
+}
+
 
 function machineturn(){
      machine.push(randomColor()); //gets generated color
@@ -69,6 +91,7 @@ function machineturn(){
                  index++;
           if (index >= machine.length) {
               clearInterval(itrid);
+              document.querySelector(".prevent").style.display = "none"; //clear the prevent screen
             }
         }, 800);
 }
@@ -76,53 +99,50 @@ function machineturn(){
 function check(a){
    console.log(user,machine);  
    if(machine[a-1]!=user[a-1]){
-      gameover();
+      handlegameover();
    }else if(machine.length == user.length){
       restart();
    }
 }
 
 function restart(){
+   document.querySelector(".prevent").style.display = "block"; //add the prevent screen 
    document.querySelector("#win").play(); //plays win sound effect
-   document.querySelector(".level").children[0].textContent = `${++level}`; //upgrading the level
+   document.querySelector("#level-screen").textContent = `${++level}`; //upgrading the level
    score = score + 10;
     document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
     
-    user = [];
+     user = [];
      order =0;
    machineturn();
 }
 
-function gameover(){
-document.querySelector(".prevent").style.display = "block"; //prevent users to click any panels
+function handlegameover(){
+   document.querySelector(".prevent").style.display = "block"; //add the prevent screen 
 document.querySelector("#lose").play(); //play lose sound effect
-level = 0; //updating the level
-document.querySelector(".level").children[0].textContent = `${level}`;
-score = 0; //updating the score
+document.querySelector(".prevent").style.display = "block"; //prevent users to click any panels
+
 document.querySelector(".score").innerHTML = ` Score: 0`;
+document.querySelector("#level-screen").textContent = "0"; 
 
-
-user = [];
-machine = [];
-order = 0;
 
 let id = setInterval(() => {    //Setting the blink msg after game over
    let msg2 = document.querySelector(".msg2");
     msg2.style.display = (msg2.style.display == "block")?"none":"block";
 }, 160);
-
 setTimeout(()=>{ //disappers the game over msg 
    clearInterval(id);
    document.querySelector(".msg2").style.display = "none";
 },2000);
 
- setTimeout(() => { //starts after game over msg disappers
-   idgameover = setInterval(() => {    //Setting the blink msg for restart
+setTimeout(() => { //starts after game over msg disappers
+   idblink = setInterval(() => {    //Setting the blink msg for restart
     let msg = document.querySelector(".msg");
     msg.style.display = (msg.style.display == "block")?"none":"block";
       }, 570);
-      key = 0;
- }, 2000);}
+    gameover = true;
+ }, 2000);
+}
 
 function randomColor(){ //return a random color
  let num = Math.floor((Math.random() * 4)+1);
