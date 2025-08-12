@@ -55,29 +55,6 @@ function handlestart(){
 
        machineturn(); //Machine will blink the colors
    }
-
-//   if (key == 0){
-//       key = 1;
-//       order = 0;
-//       user = [];
-//     if(start == false){ //make sure it started
-//         start =true;
-//         clearInterval(idblink);
-//         document.querySelector(".msg").style.display = "none";
-       
-//         document.querySelector(".prevent").style.display = "none";
-//      } else if (idgameover != 0){ //make sure everything is clear after gameover
-//          clearInterval(idgameover);
-//         document.querySelector(".msg").style.display = "none";
-//         idgameover =0;
-//         document.querySelector(".prevent").style.display = "none";
-//      }
-
-   // document.querySelector("#level-screen").textContent = `${++level}`; //upgrading the level
-   // score = score + 10;
-   // document.querySelector(".score").innerHTML = `Score: ${score}`; //updating the score
-
-   // machineturn(); //Machine will blink the colors
 }
 
 
